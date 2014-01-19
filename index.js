@@ -1,22 +1,31 @@
 'use strict';
 var path = require('path');
-var es = require('event-stream');
 var gutil = require('gulp-util');
+var through = require('through2');
 var dust = require('dustjs-linkedin');
 
 module.exports = function (name) {
-	return es.map(function (file, cb) {
-		var contents;
-		var name = path.basename(file.path, path.extname(file.path));
-
-		try {
-			contents = dust.compile(file.contents.toString(), name);
-		} catch (err) {
-			return cb(new Error('gulp-dust: ' + err));
+	return through.obj(function (file, enc, cb) {
+		if (file.isNull()) {
+			this.push(file);
+			return cb();
 		}
 
-		file.contents = new Buffer(contents);
-		file.path = gutil.replaceExtension(file.path, '.js');
-		cb(null, file);
+		if (file.isStream()) {
+			this.emit('error', new gutil.PluginError('gulp-dust', 'Streaming not supported'));
+			return cb();
+		}
+
+		try {
+			var name = path.basename(file.path, path.extname(file.path));
+			var contents = dust.compile(file.contents.toString(), name);
+			file.contents = new Buffer(contents);
+			file.path = gutil.replaceExtension(file.path, '.js');
+		} catch (err) {
+			this.emit('error', new gutil.PluginError('gulp-dust', err));
+		}
+
+		this.push(file);
+		cb();
 	});
 };
