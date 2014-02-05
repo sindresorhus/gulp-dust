@@ -17,9 +17,8 @@ module.exports = function (name) {
 		}
 
 		try {
-			var name = path.basename(file.path, path.extname(file.path));
-			var contents = dust.compile(file.contents.toString(), name);
-			file.contents = new Buffer(contents);
+			var finalName = typeof name === 'function' && name(file) || file.relative;
+			file.contents = new Buffer(dust.compile(file.contents.toString(), finalName));
 			file.path = gutil.replaceExtension(file.path, '.js');
 		} catch (err) {
 			this.emit('error', new gutil.PluginError('gulp-dust', err));
