@@ -1,4 +1,4 @@
-# [gulp](http://gulpjs.com)-dust [![Build Status](https://secure.travis-ci.org/sindresorhus/gulp-dust.png?branch=master)](http://travis-ci.org/sindresorhus/gulp-dust)
+# [gulp](http://gulpjs.com)-dust [![Build Status](https://travis-ci.org/sindresorhus/gulp-dust.svg?branch=master)](https://travis-ci.org/sindresorhus/gulp-dust)
 
 > Precompile [Dust](https://github.com/linkedin/dustjs) templates
 
@@ -7,14 +7,12 @@
 
 ## Install
 
-Install with [npm](https://npmjs.org/package/gulp-dust)
-
-```
-npm install --save-dev gulp-dust
+```bash
+$ npm install --save-dev gulp-dust
 ```
 
 
-## Example
+## Usage
 
 ```js
 var gulp = require('gulp');
@@ -50,4 +48,4 @@ dust(function (file) {
 
 ## License
 
-MIT © [Sindre Sorhus](http://sindresorhus.com)
+[MIT](http://opensource.org/licenses/MIT) © [Sindre Sorhus](http://sindresorhus.com)
