@@ -19,7 +19,7 @@ var gulp = require('gulp');
 var dust = require('gulp-dust');
 
 gulp.task('default', function () {
-	gulp.src('templates/list.html')
+	return gulp.src('templates/list.html')
 		.pipe(dust())
 		.pipe(gulp.dest('dist'));
 });
