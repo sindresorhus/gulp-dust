@@ -6,8 +6,9 @@ var dust = require('dustjs-linkedin');
 module.exports = function (options) {
 	var name;
 	var preserveWhitespace;
+
 	if (typeof options === 'function') {
-		/* Compatibility with earlier API */
+		/* compatibility with earlier API */
 		name = options;
 		preserveWhitespace = false;
 	} else if (typeof options === 'object') {
@@ -16,7 +17,7 @@ module.exports = function (options) {
 	}
 
 	if (preserveWhitespace) {
-		dust.optimizers.format = function(ctx, node) { return node; };
+		dust.optimizers.format = function (ctx, node) { return node; };
 	}
 
 	return through.obj(function (file, enc, cb) {
@@ -34,11 +35,11 @@ module.exports = function (options) {
 			var finalName = typeof name === 'function' && name(file) || file.relative;
 			file.contents = new Buffer(dust.compile(file.contents.toString(), finalName));
 			file.path = gutil.replaceExtension(file.path, '.js');
+			this.push(file);
 		} catch (err) {
 			this.emit('error', new gutil.PluginError('gulp-dust', err));
 		}
 
-		this.push(file);
 		cb();
 	});
 };

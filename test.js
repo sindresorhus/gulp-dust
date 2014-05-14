@@ -53,17 +53,11 @@ it('should support supplying custom name in a callback', function (cb) {
 });
 
 it('should leave whitespace on demand', function (cb) {
-	var buffer;
+	var stream = dust({preserveWhitespace: true});
 
-	var stream = dust({ preserveWhitespace: true });
-
-	stream.on('data', function (file) {
-		buffer = file.contents.toString();
-	});
-
-	stream.on('end', function () {
-		assert(/\\n/.test(buffer));
-		cb();
+	stream.once('data', function (file) {
+		assert(/\\n/.test(file.contents.toString()));
+		cb()
 	});
 
 	stream.write(new gutil.File({
@@ -71,6 +65,4 @@ it('should leave whitespace on demand', function (cb) {
 		path: __dirname + '/fixture/fixture.html',
 		contents: new Buffer('*fo\no*')
 	}));
-
-	stream.end();
 });

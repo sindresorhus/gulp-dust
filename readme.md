@@ -7,7 +7,7 @@
 
 ## Install
 
-```bash
+```sh
 $ npm install --save-dev gulp-dust
 ```
 
@@ -30,30 +30,33 @@ gulp.task('default', function () {
 
 ### dust([options])
 
-#### options.name
+#### options
 
-Type: `Function`  
+##### name
+
+Type: `function`  
 Default: *Relative template path. Example: `templates/list.html`*
 
 You can override the default behavior by supplying a function which gets the current [File](https://github.com/wearefractal/vinyl#constructoroptions) object and is expected to return the name.
-
-#### options.preserveWhitespace
-
-Type: `Boolean`  
-Default: *false*
-
-Prevent Dust from removing whitespace by setting the flag true.
 
 Example:
 
 ```js
 dust({
-	name: function (file) { return 'tpl-' + file.relative; },
-	preserveWhitespace: true
+	name: function (file) {
+		return 'tpl-' + file.relative;
+	}
 });
 ```
+
+##### preserveWhitespace
+
+Type: `boolean`  
+Default: *false*
+
+Preserve whitespace.
 
 
 ## License
 
-[MIT](http://opensource.org/licenses/MIT) © [Sindre Sorhus](http://sindresorhus.com)
+MIT © [Sindre Sorhus](http://sindresorhus.com)
