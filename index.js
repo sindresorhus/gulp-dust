@@ -5,17 +5,17 @@ var dust = require('dustjs-linkedin');
 
 module.exports = function (options) {
 	var name;
-	var retainWS;
+	var preserveWhitespace;
 	if (typeof options === 'function') {
 		/* Compatibility with earlier API */
 		name = options;
-		retainWS = false;
+		preserveWhitespace = false;
 	} else if (typeof options === 'object') {
 		name = options.name;
-		retainWS = options.retainWS;
+		preserveWhitespace = options.preserveWhitespace;
 	}
 
-	if (retainWS) {
+	if (preserveWhitespace) {
 		dust.optimizers.format = function(ctx, node) { return node; };
 	}
 

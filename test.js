@@ -54,11 +54,8 @@ it('should support supplying custom name in a callback', function (cb) {
 
 it('should leave whitespace on demand', function (cb) {
 	var buffer;
-	var customName = function (file) {
-		return 'custom1';
-	};
 
-	var stream = dust({ name: customName, retainWS: true });
+	var stream = dust({ preserveWhitespace: true });
 
 	stream.on('data', function (file) {
 		buffer = file.contents.toString();
