@@ -31,7 +31,6 @@ it('should support supplying custom name in a callback', function (cb) {
 	});
 
 	stream.on('end', function () {
-		console.log(buffer)
 		assert(buffer.length === 2);
 		assert(/custom1/.test(buffer[0]));
 		assert(/custom2/.test(buffer[1]));
@@ -48,6 +47,32 @@ it('should support supplying custom name in a callback', function (cb) {
 		base: __dirname,
 		path: __dirname + '/fixture/fixture2.html',
 		contents: new Buffer('*foo*')
+	}));
+
+	stream.end();
+});
+
+it('should leave whitespace on demand', function (cb) {
+	var buffer;
+	var customName = function (file) {
+		return 'custom1';
+	};
+
+	var stream = dust({ name: customName, retainWS: true });
+
+	stream.on('data', function (file) {
+		buffer = file.contents.toString();
+	});
+
+	stream.on('end', function () {
+		assert(/\\n/.test(buffer));
+		cb();
+	});
+
+	stream.write(new gutil.File({
+		base: __dirname,
+		path: __dirname + '/fixture/fixture.html',
+		contents: new Buffer('*fo\no*')
 	}));
 
 	stream.end();
