@@ -52,7 +52,7 @@ dust({
 ##### preserveWhitespace
 
 Type: `boolean`  
-Default: *false*
+Default: `false`
 
 Preserve whitespace.
 
