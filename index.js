@@ -1,10 +1,24 @@
 'use strict';
-var path = require('path');
 var gutil = require('gulp-util');
 var through = require('through2');
 var dust = require('dustjs-linkedin');
 
-module.exports = function (name) {
+module.exports = function (options) {
+	var name;
+	var preserveWhitespace;
+	if (typeof options === 'function') {
+		/* Compatibility with earlier API */
+		name = options;
+		preserveWhitespace = false;
+	} else if (typeof options === 'object') {
+		name = options.name;
+		preserveWhitespace = options.preserveWhitespace;
+	}
+
+	if (preserveWhitespace) {
+		dust.optimizers.format = function(ctx, node) { return node; };
+	}
+
 	return through.obj(function (file, enc, cb) {
 		if (file.isNull()) {
 			this.push(file);
