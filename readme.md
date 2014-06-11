@@ -1,14 +1,12 @@
-# [gulp](http://gulpjs.com)-dust [![Build Status](https://travis-ci.org/sindresorhus/gulp-dust.svg?branch=master)](https://travis-ci.org/sindresorhus/gulp-dust)
 
-> Precompile [Dust](https://github.com/linkedin/dustjs) templates
+> Render [dust](https://github.com/linkedin/dustjs) templates into HTML
 
 *Issues with the output should be reported on the Dust [issue tracker](https://github.com/linkedin/dustjs/issues).*
-
 
 ## Install
 
 ```sh
-$ npm install --save-dev gulp-dust
+$ npm install --save-dev gulp-dust-html
 ```
 
 
@@ -16,11 +14,14 @@ $ npm install --save-dev gulp-dust
 
 ```js
 var gulp = require('gulp');
-var dust = require('gulp-dust');
+var dust = require('gulp-dust-html');
 
 gulp.task('default', function () {
-	return gulp.src('templates/list.html')
-		.pipe(dust())
+	return gulp.src('templates/index.html')
+		.pipe(dust({
+      basePath: 'templates',
+      data: data
+    }))
 		.pipe(gulp.dest('dist'));
 });
 ```
@@ -32,31 +33,42 @@ gulp.task('default', function () {
 
 #### options
 
-##### name
+##### basePath
 
-Type: `function`  
-Default: *Relative template path. Example: `templates/list.html`*
+Type: `string`  
+Default: `'.'`
 
-You can override the default behavior by supplying a function which gets the current [File](https://github.com/wearefractal/vinyl#constructoroptions) object and is expected to return the name.
+Relative templates directory path (used to resolve partials). 
+Example: `templates`
 
-Example:
 
-```js
-dust({
-	name: function (file) {
-		return 'tpl-' + file.relative;
-	}
-});
-```
-
-##### preserveWhitespace
+##### whitespace
 
 Type: `boolean`  
 Default: `false`
 
 Preserve whitespace.
 
+##### data
+
+Type: `object`
+Default: `{}`
+
+Context which is passed to dust templates
+
+##### defaultExt
+
+Type: `string`
+Default: `.dust`
+
+Default extension used for templates
+
+## Todo
+
+ - Update tests to reflect the new codebase
+ - Think of a better way to handle context passing (maybe a `contents` directory?)
+
 
 ## License
 
-MIT © [Sindre Sorhus](http://sindresorhus.com)
+MIT

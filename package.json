@@ -1,13 +1,13 @@
 {
-  "name": "gulp-dust",
-  "version": "0.3.0",
-  "description": "Precompile Dust templates",
+  "name": "gulp-dust-html",
+  "version": "0.0.1",
+  "description": "Render dust templates in HTML",
   "license": "MIT",
-  "repository": "sindresorhus/gulp-dust",
+  "repository": "framp/gulp-dust-html",
   "author": {
-    "name": "Sindre Sorhus",
-    "email": "sindresorhus@gmail.com",
-    "url": "http://sindresorhus.com"
+    "name": "Federico Rampazzo",
+    "email": "frampone@gmail.com",
+    "url": "http://framp.me"
   },
   "engines": {
     "node": ">=0.10.0"
@@ -26,13 +26,14 @@
     "templates",
     "view",
     "views",
-    "precompile",
+    "render",
+    "html",
     "compile"
   ],
   "dependencies": {
-    "gulp-util": "~2.2.0",
-    "through2": "~0.4.0",
-    "dustjs-linkedin": "~2.3.0"
+    "gulp-util": "~2.2.16",
+    "through2": "~0.5.1",
+    "dustjs-linkedin": "~2.3.5"
   },
   "devDependencies": {
     "mocha": "*"
