@@ -6,7 +6,7 @@
 ## Install
 
 ```sh
-$ npm install --save-dev gulp-dust-html
+$ npm install --save-dev gulp-dust-html dustjs-linkedin
 ```
 
 
@@ -14,11 +14,13 @@ $ npm install --save-dev gulp-dust-html
 
 ```js
 var gulp = require('gulp');
-var dust = require('gulp-dust-html');
+var dust = require('dustjs-linkedin');
+dust.helpers = require('dustjs-helpers').helpers;
+var dusthtml = require('gulp-dust-html');
 
 gulp.task('default', function () {
 	return gulp.src('templates/index.html')
-		.pipe(dust({
+		.pipe(dusthtml({
       basePath: 'templates',
       data: data
     }))
