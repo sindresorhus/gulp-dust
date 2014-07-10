@@ -1,6 +1,6 @@
 {
   "name": "gulp-dust-html",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Render dust templates in HTML",
   "license": "MIT",
   "repository": "framp/gulp-dust-html",
@@ -32,8 +32,7 @@
   ],
   "dependencies": {
     "gulp-util": "~2.2.16",
-    "through2": "~0.5.1",
-    "dustjs-linkedin": "~2.3.5"
+    "through2": "~0.5.1"
   },
   "devDependencies": {
     "mocha": "*"
