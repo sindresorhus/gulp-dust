@@ -22,8 +22,10 @@ it('should precompile Dust templates', function (cb) {
 it('should support supplying custom name in a callback', function (cb) {
 	var i = 0;
 	var buffer = [];
-	var stream = dust(function (file) {
-		return 'custom' + ++i;
+	var stream = dust({
+		name: function (file) {
+			return 'custom' + ++i;
+		}
 	});
 
 	stream.on('data', function (file) {

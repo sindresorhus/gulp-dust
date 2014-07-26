@@ -4,20 +4,12 @@ var through = require('through2');
 var dust = require('dustjs-linkedin');
 
 module.exports = function (options) {
-	var name;
-	var preserveWhitespace;
+	options = options || {};
 
-	if (typeof options === 'function') {
-		/* compatibility with earlier API */
-		name = options;
-		preserveWhitespace = false;
-	} else if (typeof options === 'object') {
-		name = options.name;
-		preserveWhitespace = options.preserveWhitespace;
-	}
-
-	if (preserveWhitespace) {
-		dust.optimizers.format = function (ctx, node) { return node; };
+	if (options.preserveWhitespace) {
+		dust.optimizers.format = function (ctx, node) {
+			return node;
+		};
 	}
 
 	return through.obj(function (file, enc, cb) {
@@ -31,13 +23,15 @@ module.exports = function (options) {
 			return cb();
 		}
 
+		var filePath = file.path;
+
 		try {
-			var finalName = typeof name === 'function' && name(file) || file.relative;
+			var finalName = typeof options.name === 'function' && options.name(file) || file.relative;
 			file.contents = new Buffer(dust.compile(file.contents.toString(), finalName));
 			file.path = gutil.replaceExtension(file.path, '.js');
 			this.push(file);
 		} catch (err) {
-			this.emit('error', new gutil.PluginError('gulp-dust', err));
+			this.emit('error', new gutil.PluginError('gulp-dust', err, {fileName: filePath}));
 		}
 
 		cb();
