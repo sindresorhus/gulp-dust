@@ -32,7 +32,7 @@
   "dependencies": {
     "dustjs-linkedin": "^2.4.0",
     "gulp-util": "^3.0.0",
-    "through2": "^0.5.1"
+    "through2": "^0.6.1"
   },
   "devDependencies": {
     "mocha": "*"

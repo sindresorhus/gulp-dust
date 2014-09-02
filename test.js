@@ -1,7 +1,7 @@
 'use strict';
 var assert = require('assert');
 var gutil = require('gulp-util');
-var dust = require('./index');
+var dust = require('./');
 
 it('should precompile Dust templates', function (cb) {
 	var stream = dust();

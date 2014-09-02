@@ -14,13 +14,13 @@ module.exports = function (options) {
 
 	return through.obj(function (file, enc, cb) {
 		if (file.isNull()) {
-			this.push(file);
-			return cb();
+			cb(null, file);
+			return;
 		}
 
 		if (file.isStream()) {
-			this.emit('error', new gutil.PluginError('gulp-dust', 'Streaming not supported'));
-			return cb();
+			cb(new gutil.PluginError('gulp-dust', 'Streaming not supported'));
+			return;
 		}
 
 		var filePath = file.path;
@@ -29,11 +29,9 @@ module.exports = function (options) {
 			var finalName = typeof options.name === 'function' && options.name(file) || file.relative;
 			file.contents = new Buffer(dust.compile(file.contents.toString(), finalName));
 			file.path = gutil.replaceExtension(file.path, '.js');
-			this.push(file);
+			cb(null, file);
 		} catch (err) {
-			this.emit('error', new gutil.PluginError('gulp-dust', err, {fileName: filePath}));
+			cb(new gutil.PluginError('gulp-dust', err, {fileName: filePath}));
 		}
-
-		cb();
 	});
 };
