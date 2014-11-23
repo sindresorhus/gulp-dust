@@ -1,6 +1,6 @@
 {
   "name": "gulp-dust",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Precompile Dust templates",
   "license": "MIT",
   "repository": "sindresorhus/gulp-dust",
