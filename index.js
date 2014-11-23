@@ -3,10 +3,10 @@ var gutil = require('gulp-util');
 var through = require('through2');
 var dust = require('dustjs-linkedin');
 
-module.exports = function (options) {
-	options = options || {};
+module.exports = function (opts) {
+	opts = opts || {};
 
-	if (options.preserveWhitespace) {
+	if (opts.preserveWhitespace) {
 		dust.optimizers.format = function (ctx, node) {
 			return node;
 		};
@@ -26,12 +26,14 @@ module.exports = function (options) {
 		var filePath = file.path;
 
 		try {
-			var finalName = typeof options.name === 'function' && options.name(file) || file.relative;
+			var finalName = typeof opts.name === 'function' && opts.name(file) || file.relative;
 			file.contents = new Buffer(dust.compile(file.contents.toString(), finalName));
 			file.path = gutil.replaceExtension(file.path, '.js');
-			cb(null, file);
+			this.push(file);
 		} catch (err) {
-			cb(new gutil.PluginError('gulp-dust', err, {fileName: filePath}));
+			this.emit('error', new gutil.PluginError('gulp-dust', err, {fileName: filePath}));
 		}
+
+		cb();
 	});
 };
