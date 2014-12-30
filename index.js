@@ -46,10 +46,10 @@ module.exports = function (options) {
       return cb();
     }
 
-	// Support generating context per-file
-	if (typeof data === 'function') {
-		data = data(file);
-	}
+    // Support generating context per-file
+    if (typeof data === 'function') {
+      data = data(file);
+    }
 
     try {
       var finalName = typeof name === 'function' && name(file) || file.relative;
