@@ -1,6 +1,6 @@
 {
   "name": "gulp-dust-html",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Render dust templates in HTML",
   "license": "MIT",
   "repository": "framp/gulp-dust-html",
