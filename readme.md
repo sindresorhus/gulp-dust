@@ -19,12 +19,12 @@ dust.helpers = require('dustjs-helpers').helpers;
 var dusthtml = require('gulp-dust-html');
 
 gulp.task('default', function () {
-	return gulp.src('templates/index.html')
-		.pipe(dusthtml({
-      basePath: 'templates',
-      data: data
-    }))
-		.pipe(gulp.dest('dist'));
+  return gulp.src('templates/index.html')
+	 .pipe(dusthtml({
+	   basePath: 'templates',
+           data: data
+         }))
+	 .pipe(gulp.dest('dist'));
 });
 ```
 
@@ -53,10 +53,10 @@ Preserve whitespace.
 
 ##### data
 
-Type: `object`
+Type: `object` or `function`
 Default: `{}`
 
-Context which is passed to dust templates
+Context which is passed to dust templates. If a function is provided the function will be called with one parameter, the name of the file
 
 ##### defaultExt
 
