@@ -46,16 +46,14 @@ module.exports = function (options) {
       return cb();
     }
 
-	// Support generating context per-file
-	if (typeof data === 'function') {
-		data = data(file);
-	}
+    // Support generating context per-file
+    var contextData = typeof data === 'function' ? data(file) : data;
 
     try {
       var finalName = typeof name === 'function' && name(file) || file.relative;
       var tmpl = dust.compileFn(file.contents.toString(), finalName);
       var that = this;
-      tmpl(data, function(err, out){
+      tmpl(contextData, function(err, out){
         if (err){
           that.emit('error', new gutil.PluginError('gulp-dust', err));
           return; 
