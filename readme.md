@@ -1,4 +1,4 @@
-# [gulp](http://gulpjs.com)-dust [![Build Status](https://travis-ci.org/sindresorhus/gulp-dust.svg?branch=master)](https://travis-ci.org/sindresorhus/gulp-dust)
+# gulp-dust [![Build Status](https://travis-ci.org/sindresorhus/gulp-dust.svg?branch=master)](https://travis-ci.org/sindresorhus/gulp-dust)
 
 > Precompile [Dust](https://github.com/linkedin/dustjs) templates
 
@@ -7,7 +7,7 @@
 
 ## Install
 
-```sh
+```
 $ npm install --save-dev gulp-dust
 ```
 
