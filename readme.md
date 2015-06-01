@@ -56,6 +56,13 @@ Default: `false`
 
 Preserve whitespace.
 
+##### amd
+
+Type: `boolean`  
+Default: `false`
+
+Compile as AMD modules.
+
 
 ## License
 

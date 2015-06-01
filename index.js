@@ -12,6 +12,10 @@ module.exports = function (opts) {
 		};
 	}
 
+	if (opts.amd) {
+		dust.config.amd = true;
+	}
+
 	return through.obj(function (file, enc, cb) {
 		if (file.isNull()) {
 			cb(null, file);
