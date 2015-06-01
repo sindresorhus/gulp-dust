@@ -61,7 +61,14 @@ Preserve whitespace.
 Type: `boolean`  
 Default: `false`
 
-Compile as AMD modules.
+Compile templates [into AMD modules](http://www.dustjs.com/guides/rendering/#browser-amd-requirejs).
+
+##### cjs
+
+Type: `boolean`
+Default: `false`
+
+Compile templates [into CommonJS modules](http://www.dustjs.com/guides/rendering/#node-load-precompiled-templates).
 
 
 ## License
