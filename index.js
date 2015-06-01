@@ -6,15 +6,9 @@ var dust = require('dustjs-linkedin');
 module.exports = function (opts) {
 	opts = opts || {};
 
-	if (opts.preserveWhitespace) {
-		dust.optimizers.format = function (ctx, node) {
-			return node;
-		};
-	}
-
-	if (opts.amd) {
-		dust.config.amd = true;
-	}
+	dust.config.whitespace = (opts.preserveWhitespace === true);
+	dust.config.amd = (opts.amd === true);
+	dust.config.cjs = (opts.cjs === true);
 
 	return through.obj(function (file, enc, cb) {
 		if (file.isNull()) {

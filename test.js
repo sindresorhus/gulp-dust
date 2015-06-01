@@ -59,7 +59,7 @@ it('should leave whitespace on demand', function (cb) {
 
 	stream.once('data', function (file) {
 		assert(/\\n/.test(file.contents.toString()));
-		cb()
+		cb();
 	});
 
 	stream.write(new gutil.File({
@@ -69,12 +69,28 @@ it('should leave whitespace on demand', function (cb) {
 	}));
 });
 
-it('should should support AMD modules', function (cb) {
+it('should compile templates as AMD modules', function (cb) {
 	var stream = dust({amd: true});
 
 	stream.on('data', function (file) {
 		assert.equal(file.relative, 'fixture/fixture.js');
-		assert(/define\("fixture\\\/fixture.html"/.test(file.contents.toString()));
+		assert(/define\("fixture\\\/fixture\.html"/.test(file.contents.toString()));
+		cb();
+	});
+
+	stream.write(new gutil.File({
+		base: __dirname,
+		path: __dirname + '/fixture/fixture.html',
+		contents: new Buffer('*foo*')
+	}));
+});
+
+it('should compile templates as CommonJS modules', function (cb) {
+	var stream = dust({cjs: true});
+
+	stream.on('data', function (file) {
+		assert.equal(file.relative, 'fixture/fixture.js');
+		assert(/module\.exports=.*?"fixture\\\/fixture\.html"/.test(file.contents.toString()));
 		cb();
 	});
 
