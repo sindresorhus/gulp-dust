@@ -8,7 +8,7 @@ it('should precompile Dust templates', function (cb) {
 
 	stream.on('data', function (file) {
 		assert.equal(file.relative, 'fixture/fixture.js');
-		assert(/fixture\/fixture/.test(file.contents.toString()));
+		assert(/fixture\\\/fixture/.test(file.contents.toString()));
 		cb();
 	});
 
