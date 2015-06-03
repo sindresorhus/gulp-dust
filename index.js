@@ -16,6 +16,12 @@ module.exports = function (opts) {
 		dust.config.amd = true;
 	}
 
+	if (opts.config) {
+		Object.keys(opts.config).forEach(function (key) {
+			dust.config[key] = opts.config[key];
+		});
+	}
+
 	return through.obj(function (file, enc, cb) {
 		if (file.isNull()) {
 			cb(null, file);
