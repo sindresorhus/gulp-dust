@@ -123,7 +123,7 @@ it('should work with deprecated amd option', function (cb) {
 	var stream = dust({ amd: true });
 
 	stream.once('data', function (file) {
-		assert.equal(file.relative, 'fixture\\fixture.js');
+		assert.equal(file.relative, 'fixture/fixture.js');
 		assert(/define\("fixture\\\\fixture.html"/.test(file.contents.toString()));
 		cb()
 	});
