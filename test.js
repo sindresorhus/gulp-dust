@@ -11,8 +11,8 @@ it('should precompile Dust templates', function (cb) {
 	var stream = dust();
 
 	stream.on('data', function (file) {
-		assert.equal(file.relative, 'fixture/fixture.js');
-		assert(/fixture\\\/fixture/.test(file.contents.toString()));
+		assert.equal(file.relative.replace(/\\/g, '/'), 'fixture/fixture.js');
+		assert(/fixture\\[\\/]fixture/.test(file.contents.toString()));
 		cb();
 	});
 
@@ -77,8 +77,8 @@ it('should should support AMD modules', function (cb) {
 	var stream = dust({ config: { amd: true } });
 
 	stream.on('data', function (file) {
-		assert.equal(file.relative, 'fixture/fixture.js');
-		assert(/define\("fixture\\\/fixture.html"/.test(file.contents.toString()));
+		assert.equal(file.relative.replace(/\\/g, '/'), 'fixture/fixture.js');
+		assert(/define\("fixture\\[\\/]fixture.html"/.test(file.contents.toString()));
 		cb();
 	});
 
@@ -123,8 +123,8 @@ it('should work with deprecated amd option', function (cb) {
 	var stream = dust({ amd: true });
 
 	stream.once('data', function (file) {
-		assert.equal(file.relative, 'fixture/fixture.js');
-		assert(/define\("fixture\\\/fixture.html"/.test(file.contents.toString()));
+		assert.equal(file.relative.replace(/\\/g, '/'), 'fixture/fixture.js');
+		assert(/define\("fixture\\[\\/]fixture.html"/.test(file.contents.toString()));
 		cb();
 	});
 
