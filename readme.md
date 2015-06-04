@@ -55,35 +55,26 @@ Default: `{ whitespace: false, amd: false, cjs: false }`
 
 Corresponds to `dust.config`.  Use it to override any dust configuration value.
 
-#### Deprecated
-
-The following have been replaced by `config`:
-
-##### preserveWhitespace
+##### config.whitespace
 
 Type: `boolean`  
 Default: `false`
 
-Preserve whitespace.  Deprecated.  Instead use `config.whitespace`:
+Preserve whitespace.
 
-```js
-dust({
-    config: { whitespace: true }
-});
-```
-
-##### amd
+##### config.amd
 
 Type: `boolean`  
 Default: `false`
 
-Compile as AMD modules.  Deprecated.  Instead use `config.amd`:
+Compile as AMD modules.
 
-```js
-dust({
-    config: { amd: true }
-});
-```
+##### config.cjs
+
+Type: `boolean`  
+Default: `false`
+
+Compile as CommonJS modules.
 
 
 ## License
