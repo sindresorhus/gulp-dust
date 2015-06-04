@@ -63,7 +63,7 @@ it('should leave whitespace on demand', function (cb) {
 
 	stream.once('data', function (file) {
 		assert(/\\n/.test(file.contents.toString()));
-		cb()
+		cb();
 	});
 
 	stream.write(new gutil.File({
@@ -109,7 +109,7 @@ it('should work with deprecated whitespace option', function (cb) {
 
 	stream.once('data', function (file) {
 		assert(/\\n/.test(file.contents.toString()));
-		cb()
+		cb();
 	});
 
 	stream.write(new gutil.File({
@@ -124,8 +124,8 @@ it('should work with deprecated amd option', function (cb) {
 
 	stream.once('data', function (file) {
 		assert.equal(file.relative, 'fixture/fixture.js');
-		assert(/define\("fixture\\\\fixture.html"/.test(file.contents.toString()));
-		cb()
+		assert(/define\("fixture\\\/fixture.html"/.test(file.contents.toString()));
+		cb();
 	});
 
 	stream.write(new gutil.File({
