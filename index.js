@@ -5,8 +5,8 @@ var dust = require('dustjs-linkedin');
 var objectAssign = require('object-assign');
 var util = require('util');
 
-var setWhitespace = deprecate("preserveWhitespace", "whitespace");
-var setAmd = deprecate("amd", "amd");
+var setWhitespace = deprecate('preserveWhitespace', 'whitespace');
+var setAmd = deprecate('amd', 'amd');
 
 module.exports = function (opts) {
 	opts = opts || {};
