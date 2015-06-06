@@ -1,9 +1,20 @@
 'use strict';
+var util = require('util');
 var gutil = require('gulp-util');
 var through = require('through2');
 var dust = require('dustjs-linkedin');
 var objectAssign = require('object-assign');
-var util = require('util');
+
+function deprecate(optName, configName) {
+	return util.deprecate(function (opts) {
+		opts.config = opts.config || {};
+
+		// don't overwrite existing config value
+		if (!(configName in opts.config)) {
+			opts.config[configName] = opts[optName];
+		}
+	}, 'options.' + optName + ' is deprecated, use options.config.' + configName + ' instead');
+}
 
 var setWhitespace = deprecate('preserveWhitespace', 'whitespace');
 var setAmd = deprecate('amd', 'amd');
@@ -46,12 +57,3 @@ module.exports = function (opts) {
 		cb();
 	});
 };
-
-function deprecate(optName, configName) {
-	return util.deprecate(function (opts) {
-		opts.config = opts.config || {};
-		if (!(configName in opts.config)) { // don't overwrite existing config value
-			opts.config[configName] = opts[optName];
-		}
-	}, 'options.' + optName + ' is deprecated, use options.config.' + configName + ' instead');
-}

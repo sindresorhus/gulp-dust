@@ -3,8 +3,14 @@ var assert = require('assert');
 var gutil = require('gulp-util');
 var dust = require('./');
 
-afterEach(function resetConfig() {
-	dust({ config: { whitespace: false, amd: false, cjs: false } });
+afterEach(function () {
+	dust({
+		config: {
+			whitespace: false,
+			amd: false,
+			cjs: false
+		}
+	});
 });
 
 it('should precompile Dust templates', function (cb) {
@@ -59,7 +65,11 @@ it('should support supplying custom name in a callback', function (cb) {
 });
 
 it('should leave whitespace on demand', function (cb) {
-	var stream = dust({ config: { whitespace: true } });
+	var stream = dust({
+		config: {
+			whitespace: true
+		}
+	});
 
 	stream.once('data', function (file) {
 		assert(/\\n/.test(file.contents.toString()));
@@ -74,7 +84,11 @@ it('should leave whitespace on demand', function (cb) {
 });
 
 it('should should support AMD modules', function (cb) {
-	var stream = dust({ config: { amd: true } });
+	var stream = dust({
+		config: {
+			amd: true
+		}
+	});
 
 	stream.on('data', function (file) {
 		assert.equal(file.relative.replace(/\\/g, '/'), 'fixture/fixture.js');
@@ -90,7 +104,11 @@ it('should should support AMD modules', function (cb) {
 });
 
 it('should should support CJS modules', function (cb) {
-	var stream = dust({ config: { cjs: true } });
+	var stream = dust({
+		config: {
+			cjs: true
+		}
+	});
 
 	stream.on('data', function (file) {
 		assert(/^module\.exports=function/.test(file.contents.toString()));
@@ -105,7 +123,7 @@ it('should should support CJS modules', function (cb) {
 });
 
 it('should work with deprecated whitespace option', function (cb) {
-	var stream = dust({ preserveWhitespace: true });
+	var stream = dust({preserveWhitespace: true});
 
 	stream.once('data', function (file) {
 		assert(/\\n/.test(file.contents.toString()));
@@ -120,7 +138,7 @@ it('should work with deprecated whitespace option', function (cb) {
 });
 
 it('should work with deprecated amd option', function (cb) {
-	var stream = dust({ amd: true });
+	var stream = dust({amd: true});
 
 	stream.once('data', function (file) {
 		assert.equal(file.relative.replace(/\\/g, '/'), 'fixture/fixture.js');

@@ -51,25 +51,25 @@ dust({
 ##### config
 
 Type: `object`  
-Default: `{ whitespace: false, amd: false, cjs: false }`
+Default: `{whitespace: false, amd: false, cjs: false}`
 
 Corresponds to `dust.config`.  Use it to override any dust configuration value.
 
-##### config.whitespace
+###### whitespace
 
 Type: `boolean`  
 Default: `false`
 
 Preserve whitespace.
 
-##### config.amd
+###### amd
 
 Type: `boolean`  
 Default: `false`
 
 Compile as AMD modules.
 
-##### config.cjs
+###### cjs
 
 Type: `boolean`  
 Default: `false`
