@@ -48,20 +48,33 @@ dust({
 	}
 });
 ```
+##### config
 
-##### preserveWhitespace
+Type: `object`  
+Default: `{ whitespace: false, amd: false, cjs: false }`
+
+Corresponds to `dust.config`.  Use it to override any dust configuration value.
+
+##### config.whitespace
 
 Type: `boolean`  
 Default: `false`
 
 Preserve whitespace.
 
-##### amd
+##### config.amd
 
 Type: `boolean`  
 Default: `false`
 
 Compile as AMD modules.
+
+##### config.cjs
+
+Type: `boolean`  
+Default: `false`
+
+Compile as CommonJS modules.
 
 
 ## License

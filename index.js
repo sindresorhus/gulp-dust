@@ -2,19 +2,24 @@
 var gutil = require('gulp-util');
 var through = require('through2');
 var dust = require('dustjs-linkedin');
+var objectAssign = require('object-assign');
+var util = require('util');
+
+var setWhitespace = deprecate('preserveWhitespace', 'whitespace');
+var setAmd = deprecate('amd', 'amd');
 
 module.exports = function (opts) {
 	opts = opts || {};
 
 	if (opts.preserveWhitespace) {
-		dust.optimizers.format = function (ctx, node) {
-			return node;
-		};
+		setWhitespace(opts);
 	}
 
 	if (opts.amd) {
-		dust.config.amd = true;
+		setAmd(opts);
 	}
+
+	objectAssign(dust.config, opts.config);
 
 	return through.obj(function (file, enc, cb) {
 		if (file.isNull()) {
@@ -41,3 +46,12 @@ module.exports = function (opts) {
 		cb();
 	});
 };
+
+function deprecate(optName, configName) {
+	return util.deprecate(function (opts) {
+		opts.config = opts.config || {};
+		if (!(configName in opts.config)) { // don't overwrite existing config value
+			opts.config[configName] = opts[optName];
+		}
+	}, 'options.' + optName + ' is deprecated, use options.config.' + configName + ' instead');
+}
