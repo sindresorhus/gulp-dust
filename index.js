@@ -1,5 +1,6 @@
 'use strict';
 var util = require('util');
+var path = require('path');
 var gutil = require('gulp-util');
 var through = require('through2');
 var dust = require('dustjs-linkedin');
@@ -46,7 +47,8 @@ module.exports = function (opts) {
 		var filePath = file.path;
 
 		try {
-			var finalName = typeof opts.name === 'function' && opts.name(file) || file.relative;
+            var fullName = typeof opts.name === 'function' && opts.name(file) || file.relative;
+			var finalName = path.extname(fullName) ? fullName.split(path.extname(fullName))[0] : fullName;
 			file.contents = new Buffer(dust.compile(file.contents.toString(), finalName));
 			file.path = gutil.replaceExtension(file.path, '.js');
 			this.push(file);

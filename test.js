@@ -92,7 +92,7 @@ it('should should support AMD modules', function (cb) {
 
 	stream.on('data', function (file) {
 		assert.equal(file.relative.replace(/\\/g, '/'), 'fixture/fixture.js');
-		assert(/define\("fixture\\[\\/]fixture.html"/.test(file.contents.toString()));
+		assert(/define\("fixture\\[\\/]fixture"/.test(file.contents.toString()));
 		cb();
 	});
 
@@ -142,7 +142,7 @@ it('should work with deprecated amd option', function (cb) {
 
 	stream.once('data', function (file) {
 		assert.equal(file.relative.replace(/\\/g, '/'), 'fixture/fixture.js');
-		assert(/define\("fixture\\[\\/]fixture.html"/.test(file.contents.toString()));
+		assert(/define\("fixture\\[\\/]fixture"/.test(file.contents.toString()));
 		cb();
 	});
 
