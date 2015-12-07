@@ -48,7 +48,7 @@ module.exports = function (opts) {
 
 		try {
 			var fullName = typeof opts.name === 'function' && opts.name(file) || file.relative;
-			var finalName = path.extname(fullName) ? fullName.split(path.extname(fullName))[0] : fullName;
+			var finalName = path.basename(fullName, path.extname(fullName));
 			file.contents = new Buffer(dust.compile(file.contents.toString(), finalName));
 			file.path = gutil.replaceExtension(file.path, '.js');
 			this.push(file);
