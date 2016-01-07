@@ -35,16 +35,16 @@ gulp.task('default', function () {
 ##### name
 
 Type: `function`  
-Default: *Relative template path. Example: `templates/list.html`*
+Default: *Filename. Example: `templates/list.html` => `list`*
 
-You can override the default behavior by supplying a function which gets the current [File](https://github.com/wearefractal/vinyl#constructoroptions) object and is expected to return the name.
+You can override the default behavior by supplying a function which gets the current [File](https://github.com/wearefractal/vinyl#constructoroptions) object and is expected to return the name. File extension is removed as dust#compile expects a template’s name.
 
 Example:
 
 ```js
 dust({
 	name: function (file) {
-		return 'tpl-' + file.relative;
+		return 'custom';
 	}
 });
 ```
