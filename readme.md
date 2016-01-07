@@ -15,10 +15,10 @@ $ npm install --save-dev gulp-dust
 ## Usage
 
 ```js
-var gulp = require('gulp');
-var dust = require('gulp-dust');
+const gulp = require('gulp');
+const dust = require('gulp-dust');
 
-gulp.task('default', function () {
+gulp.task('default', () => {
 	return gulp.src('templates/list.html')
 		.pipe(dust())
 		.pipe(gulp.dest('dist'));
@@ -37,15 +37,13 @@ gulp.task('default', function () {
 Type: `function`  
 Default: *Filename. Example: `templates/list.html` => `list`*
 
-You can override the default behavior by supplying a function which gets the current [File](https://github.com/wearefractal/vinyl#constructoroptions) object and is expected to return the name. File extension is removed as dust#compile expects a template’s name.
+You can override the default behavior by supplying a function which gets the current [File](https://github.com/wearefractal/vinyl#constructoroptions) object and is expected to return the name.
 
 Example:
 
 ```js
 dust({
-	name: function (file) {
-		return 'custom';
-	}
+	name: file => 'custom'
 });
 ```
 ##### config
