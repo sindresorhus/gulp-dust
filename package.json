@@ -30,7 +30,7 @@
     "compile"
   ],
   "dependencies": {
-    "dustjs-linkedin": "^2.4.0",
+    "dustjs-linkedin": "^2.7.2",
     "gulp-util": "^3.0.0",
     "object-assign": "^4.0.1",
     "through2": "^2.0.0"
