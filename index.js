@@ -19,6 +19,7 @@ function deprecate(optName, configName) {
 
 var setWhitespace = deprecate('preserveWhitespace', 'whitespace');
 var setAmd = deprecate('amd', 'amd');
+var setCommonJs = deprecate('cjs', 'cjs');
 
 module.exports = function (opts) {
 	opts = opts || {};
@@ -29,6 +30,10 @@ module.exports = function (opts) {
 
 	if (opts.amd) {
 		setAmd(opts);
+	}
+
+	if(opts.cjs) {
+		setCommonJs(opts);
 	}
 
 	objectAssign(dust.config, opts.config);
