@@ -23,6 +23,10 @@ var setAmd = deprecate('amd', 'amd');
 module.exports = function (opts) {
 	opts = opts || {};
 
+	if(opts.amd) {
+		dust.config.amd = true;
+	}
+
 	if (opts.preserveWhitespace) {
 		setWhitespace(opts);
 	}
