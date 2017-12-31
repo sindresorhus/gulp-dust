@@ -1,9 +1,11 @@
+/* eslint-env mocha */
 'use strict';
-var assert = require('assert');
-var gutil = require('gulp-util');
-var dust = require('./');
+const path = require('path');
+const assert = require('assert');
+const Vinyl = require('vinyl');
+const dust = require('.');
 
-afterEach(function () {
+afterEach(() => {
 	dust({
 		config: {
 			whitespace: false,
@@ -13,142 +15,111 @@ afterEach(function () {
 	});
 });
 
-it('should precompile Dust templates', function (cb) {
-	var stream = dust();
+it('should precompile Dust templates', cb => {
+	const stream = dust();
 
-	stream.on('data', function (file) {
+	stream.on('data', file => {
 		assert.equal(file.relative.replace(/\\/g, '/'), 'fixture/fixture.js');
 		assert(/fixture/.test(file.contents.toString()));
 		cb();
 	});
 
-	stream.write(new gutil.File({
+	stream.end(new Vinyl({
 		base: __dirname,
-		path: __dirname + '/fixture/fixture.html',
-		contents: new Buffer('*foo*')
+		path: path.join(__dirname, 'fixture/fixture.html'),
+		contents: Buffer.from('*foo*')
 	}));
 });
 
-it('should support supplying custom name in a callback', function (cb) {
-	var i = 0;
-	var buffer = [];
-	var stream = dust({
-		name: function (file) {
+it('should support supplying custom name in a callback', cb => {
+	let i = 0;
+	const buffer = [];
+	const stream = dust({
+		name() {
 			return 'custom' + ++i;
 		}
 	});
 
-	stream.on('data', function (file) {
+	stream.on('data', file => {
 		buffer.push(file.contents.toString());
 	});
 
-	stream.on('end', function () {
+	stream.on('end', () => {
 		assert(buffer.length === 2);
 		assert(/custom1/.test(buffer[0]));
 		assert(/custom2/.test(buffer[1]));
 		cb();
 	});
 
-	stream.write(new gutil.File({
+	stream.write(new Vinyl({
 		base: __dirname,
-		path: __dirname + '/fixture/fixture.html',
-		contents: new Buffer('*foo*')
+		path: path.join(__dirname, 'fixture/fixture.html'),
+		contents: Buffer.from('*foo*')
 	}));
 
-	stream.write(new gutil.File({
+	stream.write(new Vinyl({
 		base: __dirname,
-		path: __dirname + '/fixture/fixture2.html',
-		contents: new Buffer('*foo*')
+		path: path.join(__dirname, 'fixture/fixture2.html'),
+		contents: Buffer.from('*foo*')
 	}));
 
 	stream.end();
 });
 
-it('should leave whitespace on demand', function (cb) {
-	var stream = dust({
+it('should leave whitespace on demand', cb => {
+	const stream = dust({
 		config: {
 			whitespace: true
 		}
 	});
 
-	stream.once('data', function (file) {
+	stream.on('data', file => {
 		assert(/\\n/.test(file.contents.toString()));
 		cb();
 	});
 
-	stream.write(new gutil.File({
+	stream.end(new Vinyl({
 		base: __dirname,
-		path: __dirname + '/fixture/fixture.html',
-		contents: new Buffer('*fo\no*')
+		path: path.join(__dirname, 'fixture/fixture.html'),
+		contents: Buffer.from('*fo\no*')
 	}));
 });
 
-it('should should support AMD modules', function (cb) {
-	var stream = dust({
+it('should should support AMD modules', cb => {
+	const stream = dust({
 		config: {
 			amd: true
 		}
 	});
 
-	stream.on('data', function (file) {
+	stream.on('data', file => {
 		assert.equal(file.relative.replace(/\\/g, '/'), 'fixture/fixture.js');
 		assert(/define\("fixture"/.test(file.contents.toString()));
 		cb();
 	});
 
-	stream.write(new gutil.File({
+	stream.end(new Vinyl({
 		base: __dirname,
-		path: __dirname + '/fixture/fixture.html',
-		contents: new Buffer('*foo*')
+		path: path.join(__dirname, 'fixture/fixture.html'),
+		contents: Buffer.from('*foo*')
 	}));
 });
 
-it('should should support CJS modules', function (cb) {
-	var stream = dust({
+it('should should support CJS modules', cb => {
+	const stream = dust({
 		config: {
 			cjs: true
 		}
 	});
 
-	stream.on('data', function (file) {
+	stream.on('data', file => {
 		assert(/^module\.exports=function/.test(file.contents.toString()));
 		cb();
 	});
 
-	stream.write(new gutil.File({
+	stream.end(new Vinyl({
 		base: __dirname,
-		path: __dirname + '/fixture/fixture.html',
-		contents: new Buffer('*foo*')
-	}));
-});
-
-it('should work with deprecated whitespace option', function (cb) {
-	var stream = dust({preserveWhitespace: true});
-
-	stream.once('data', function (file) {
-		assert(/\\n/.test(file.contents.toString()));
-		cb();
-	});
-
-	stream.write(new gutil.File({
-		base: __dirname,
-		path: __dirname + '/fixture/fixture.html',
-		contents: new Buffer('*fo\no*')
-	}));
-});
-
-it('should work with deprecated amd option', function (cb) {
-	var stream = dust({amd: true});
-
-	stream.once('data', function (file) {
-		assert.equal(file.relative.replace(/\\/g, '/'), 'fixture/fixture.js');
-		assert(/define\("fixture"/.test(file.contents.toString()));
-		cb();
-	});
-
-	stream.write(new gutil.File({
-		base: __dirname,
-		path: __dirname + '/fixture/fixture.html',
-		contents: new Buffer('*foo*')
+		path: path.join(__dirname, 'fixture/fixture.html'),
+		contents: Buffer.from('*foo*')
 	}));
 });

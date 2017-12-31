@@ -1,37 +1,13 @@
 'use strict';
-var util = require('util');
-var path = require('path');
-var gutil = require('gulp-util');
-var through = require('through2');
-var dust = require('dustjs-linkedin');
-var objectAssign = require('object-assign');
+const path = require('path');
+const through = require('through2');
+const dust = require('dustjs-linkedin');
+const PluginError = require('plugin-error');
 
-function deprecate(optName, configName) {
-	return util.deprecate(function (opts) {
-		opts.config = opts.config || {};
+module.exports = options => {
+	options = options || {};
 
-		// don't overwrite existing config value
-		if (!(configName in opts.config)) {
-			opts.config[configName] = opts[optName];
-		}
-	}, 'options.' + optName + ' is deprecated, use options.config.' + configName + ' instead');
-}
-
-var setWhitespace = deprecate('preserveWhitespace', 'whitespace');
-var setAmd = deprecate('amd', 'amd');
-
-module.exports = function (opts) {
-	opts = opts || {};
-
-	if (opts.preserveWhitespace) {
-		setWhitespace(opts);
-	}
-
-	if (opts.amd) {
-		setAmd(opts);
-	}
-
-	objectAssign(dust.config, opts.config);
+	Object.assign(dust.config, options.config);
 
 	return through.obj(function (file, enc, cb) {
 		if (file.isNull()) {
@@ -40,20 +16,20 @@ module.exports = function (opts) {
 		}
 
 		if (file.isStream()) {
-			cb(new gutil.PluginError('gulp-dust', 'Streaming not supported'));
+			cb(new PluginError('gulp-dust', 'Streaming not supported'));
 			return;
 		}
 
-		var filePath = file.path;
+		const filePath = file.path;
 
 		try {
-			var tplName = typeof opts.name === 'function' && opts.name(file) ||
+			const tplName = (typeof options.name === 'function' && options.name(file)) ||
 				path.basename(file.path, path.extname(file.path));
-			file.contents = new Buffer(dust.compile(file.contents.toString(), tplName));
-			file.path = gutil.replaceExtension(file.path, '.js');
+			file.contents = Buffer.from(dust.compile(file.contents.toString(), tplName));
+			file.extname = '.js';
 			this.push(file);
 		} catch (err) {
-			this.emit('error', new gutil.PluginError('gulp-dust', err, {fileName: filePath}));
+			this.emit('error', new PluginError('gulp-dust', err, {fileName: filePath}));
 		}
 
 		cb();

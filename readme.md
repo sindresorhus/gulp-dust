@@ -18,11 +18,11 @@ $ npm install --save-dev gulp-dust
 const gulp = require('gulp');
 const dust = require('gulp-dust');
 
-gulp.task('default', () => {
-	return gulp.src('templates/list.html')
+gulp.task('default', () =>
+	gulp.src('templates/list.html')
 		.pipe(dust())
-		.pipe(gulp.dest('dist'));
-});
+		.pipe(gulp.dest('dist'))
+);
 ```
 
 
@@ -32,10 +32,12 @@ gulp.task('default', () => {
 
 #### options
 
+Type: `Object`
+
 ##### name
 
-Type: `function`  
-Default: *Filename. Example: `templates/list.html` => `list`*
+Type: `Function`<br>
+Default: Filename (`templates/list.html` => `list`)
 
 You can override the default behavior by supplying a function which gets the current [File](https://github.com/wearefractal/vinyl#constructoroptions) object and is expected to return the name.
 
@@ -46,30 +48,31 @@ dust({
 	name: file => 'custom'
 });
 ```
+
 ##### config
 
-Type: `object`  
+Type: `Object`<br>
 Default: `{whitespace: false, amd: false, cjs: false}`
 
 Corresponds to `dust.config`.  Use it to override any dust configuration value.
 
 ###### whitespace
 
-Type: `boolean`  
+Type: `boolean`<br>
 Default: `false`
 
 Preserve whitespace.
 
 ###### amd
 
-Type: `boolean`  
+Type: `boolean`<br>
 Default: `false`
 
 Compile as AMD modules.
 
 ###### cjs
 
-Type: `boolean`  
+Type: `boolean`<br>
 Default: `false`
 
 Compile as CommonJS modules.
@@ -77,4 +80,4 @@ Compile as CommonJS modules.
 
 ## License
 
-MIT © [Sindre Sorhus](http://sindresorhus.com)
+MIT © [Sindre Sorhus](https://sindresorhus.com)
