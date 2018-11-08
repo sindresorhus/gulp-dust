@@ -1,3 +1,9 @@
+# Deprecated
+
+The Dust project is no longer maintained.
+
+---
+
 # gulp-dust [![Build Status](https://travis-ci.org/sindresorhus/gulp-dust.svg?branch=master)](https://travis-ci.org/sindresorhus/gulp-dust)
 
 > Precompile [Dust](https://github.com/linkedin/dustjs) templates
